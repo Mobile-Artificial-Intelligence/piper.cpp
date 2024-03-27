@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.18)
 
 project(
   piper
@@ -128,12 +128,20 @@ if(NOT DEFINED ESPEAK_NG_DIR)
   )
 
   # Platform-specific settings
-  if (ANDROID_NDK)
-    message("Using Android NDK at ${ANDROID_NDK}")
+  if (CMAKE_ANDROID_NDK)
+    message("Using Android NDK")
 
     list(APPEND ESPEAK_NG_CMAKE_ARGS
       -DCMAKE_C_FLAGS="-D_FILE_OFFSET_BITS=64"
-      -DCMAKE_TOOLCHAIN_FILE="${ANDROID_NDK}/build/cmake/android.toolchain.cmake"
+      -DCMAKE_SYSTEM_NAME="Android"
+      -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+      -DCMAKE_SYSTEM_VERSION=23
+      -DANDROID_PLATFORM="android-23"
+      -DANDROID_ABI=arm64-v8a
+      -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a
+      -DCMAKE_ANDROID_NDK=${CMAKE_ANDROID_NDK}
+      -DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}
+      -DCMAKE_MAKE_PROGRAM=${CMAKE_MAKE_PROGRAM}
     )
   else()
     list(APPEND ESPEAK_NG_CMAKE_ARGS
