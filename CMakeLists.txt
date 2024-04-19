@@ -239,11 +239,6 @@ install(
 )
 
 install(
-  DIRECTORY ${ESPEAK_NG_DIR}/share/
+  DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/share/
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/../share/
-)
-
-install(
-  DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/model/
-  DESTINATION ${CMAKE_INSTALL_LIBDIR}/../share/piper/
 )
